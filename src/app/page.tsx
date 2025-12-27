@@ -1,10 +1,17 @@
+import AboutSection from "@/components/AboutSection";
+import EventsSection from "@/components/EventsSection";
+import HeroSection from "@/components/HeroSection";
+import SpeakerSection from "@/components/SpeakerSection";
+import SponsorSection from "@/components/SponsorSection";
+import TimelineSection from "@/components/TimelineSection";
+import VenueSection from "@/components/VenueSection";
 import Image from "next/image";
 
 export default function Home() {
 	return (
 		<div className=" flex flex-col justify-items-center min-h-screen p-8 font-[var(--font-geist-sans)] text-center">
 
-			<main className="flex flex-col gap-4 font-bold text-xl sm:text-2xl items-center" style={{ alignItems: "center", height: "200px" }}>
+			{/* <main className="flex flex-col gap-4 font-bold text-xl sm:text-2xl items-center" style={{ alignItems: "center", height: "200px" }}>
 				<Image
 					src="/ieeejusb.png"
 					alt="IEEE JUSB Logo"
@@ -38,7 +45,17 @@ export default function Home() {
 			</div>
 			<p className="mt-10 text-xl font-semibold text-center text-gray-1	00 dark:text-gray-200">
 				<span className="text-gradient">15.01.2026</span> @Triguna Sen Auditorium
-			</p>
+			</p> */}
+			<>
+				<HeroSection />
+				<AboutSection />
+				<TimelineSection />
+				<SpeakerSection />
+				<EventsSection />
+				<SponsorSection />
+				<VenueSection />
+			</>
+
 		</div>
 	);
 }
