@@ -52,7 +52,7 @@ export async function sendRegistrationEmail(
         </div>
 
         <p style="font-size: 16px; color: #333; line-height: 1.6;">
-          Please retain this email for your records. Further instructions regarding the event schedule will be communicated shortly.
+          Please retain this email for your records. Join the Whatsapp Group: https://chat.whatsapp.com/JklVpCtsiOz8k2Jgjo3z8X Further instructions regarding the event schedule will be communicated shortly. 
         </p>
         
         <br/>
