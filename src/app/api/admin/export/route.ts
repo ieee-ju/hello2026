@@ -59,7 +59,7 @@ export async function GET(req: Request) {
         "Content-Disposition": `attachment; filename="hello-ieee-users.csv"`,
       },
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Failed to export data" },
       { status: 500 }

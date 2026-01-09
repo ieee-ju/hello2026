@@ -1,7 +1,6 @@
 //gets the authentication status
 
 import { NextRequest, NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
 
 export async function GET(req: NextRequest) {
   try {
@@ -15,11 +14,6 @@ export async function GET(req: NextRequest) {
       });
     }
     if (authToken){
-      const decoded = jwt.verify(
-        authToken,
-        process.env.JWT_SECRET!
-      ) as { userId: string; email: string };
-  
       return NextResponse.json({
         authenticated: true,
         admin: false

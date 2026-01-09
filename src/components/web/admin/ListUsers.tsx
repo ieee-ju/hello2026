@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import {
     Table,
@@ -71,32 +71,32 @@ export default function ListUsers() {
         "Others"
     ] as const;
 
-    async function fetchUsers() {
-        setLoading(true);
+    const fetchUsers = useCallback(async () => {
+      setLoading(true);
 
-        const params = new URLSearchParams();
-        params.set("page", page.toString());
-        params.set("limit", limit.toString());
-        if (search) params.set("search", search);
-        if (attended !== "all") params.set("attended", attended);
-        if (department !== "all") params.set("department", department);
+      const params = new URLSearchParams();
+      params.set("page", page.toString());
+      params.set("limit", limit.toString());
+      if (search) params.set("search", search);
+      if (attended !== "all") params.set("attended", attended);
+      if (department !== "all") params.set("department", department);
 
+      const res = await fetch(`/api/admin/users?${params.toString()}`);
+      const data = await res.json();
 
-        const res = await fetch(`/api/admin/users?${params.toString()}`);
-        const data = await res.json();
+      setUsers(data.users);
+      setPagination(data.pagination);
+      setLoading(false);
+    }, [page, limit, search, attended, department]);
 
-        setUsers(data.users);
-        setPagination(data.pagination);
-        setLoading(false);
-    }
 
     useEffect(() => {
         const delay = setTimeout(() => {
             fetchUsers();
-        }, search ? 200 : 0); // Only delay if the user is typing
+        }, search ? 200 : 0);
 
         return () => clearTimeout(delay);
-    }, [page, attended, department, search]);
+    }, [fetchUsers, search]);
 
     return (
         <div className="rounded-xl border border-white/10 bg-white/5 p-6 space-y-6">

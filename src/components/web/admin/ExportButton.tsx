@@ -11,7 +11,6 @@ interface ExportButtonProps {
 }
 
 export default function ExportButton({
-  search,
   attended,
   department
 }: ExportButtonProps) {
