@@ -223,6 +223,8 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { Scanner } from "@yudiel/react-qr-scanner";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -438,10 +440,18 @@ async function handleSubmit() {
             )}
           </div>
 
-          <div className="flex items-center gap-3 w-full md:w-auto">
+          <div className="flex flex-col items-center gap-3 w-full md:flex-row md:w-auto">
+            <Link href="https://chat.whatsapp.com/JklVpCtsiOz8k2Jgjo3z8X" target="_blank" className="w-full md:w-auto">
+              <button
+                  className="w-full md:w-auto flex items-center justify-center gap-2 px-5 py-3 rounded-xl border bg-[#25D366]/15 border-white/10 hover:bg-[#25D366]/10 hover:border-white/20 text-sm font-bold tracking-wide transition-all duration-300 group"
+              >
+                  <Image width={20} height={20} src="/logos/whatsapp.png" alt='Whatsapp Link'/>
+                  <span>Join Whatsapp Group</span>
+              </button>
+            </Link>
             {/* Change password */}
             <button
-                className="flex-1 md:flex-none flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-white/10 hover:bg-white/5 hover:border-white/20 text-sm font-bold tracking-wide transition-all duration-300 group"
+                className="w-full md:w-auto flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-white/10 hover:bg-white/5 hover:border-white/20 text-sm font-bold tracking-wide transition-all duration-300 group"
                 onClick={() => setOpen(true)}
             >
                 <KeyRound className="w-4 h-4 text-gray-500 group-hover:text-white" />
@@ -451,7 +461,7 @@ async function handleSubmit() {
             <Dialog open={open} onOpenChange={setOpen}>
               <DialogContent className="bg-black/90 border-white/10">
                 <DialogHeader>
-                  <DialogTitle>Change password</DialogTitle>
+                  <DialogTitle className="text-white">Change password</DialogTitle>
                   <DialogDescription>
                     Choose a strong, memorable password.
                   </DialogDescription>
@@ -492,7 +502,7 @@ async function handleSubmit() {
             {/* Logout */}
             <button
               onClick={handleLogout}
-              className="flex-1 md:flex-none flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-red-500/20 text-red-400 hover:bg-red-500/10 hover:border-red-500/30 text-sm font-bold tracking-wide transition-all duration-300"
+              className="w-full md:w-auto flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-red-500/20 text-red-400 hover:bg-red-500/10 hover:border-red-500/30 text-sm font-bold tracking-wide transition-all duration-300"
             >
               <LogOut className="w-4 h-4" />
               <span>Logout</span>
@@ -568,7 +578,7 @@ async function handleSubmit() {
                     </h3>
 
                     <p className="text-gray-500 text-sm mb-6">
-                      Scan the venue QR code to verify your attendance.
+                      <span className="text-[#8EC5FF]/80">Scan the venue QR code</span> to <span className="text-[#8EC5FF]/80">verify your attendance</span> and <span className="text-[#8EC5FF]/80">avail your refreshments</span>.
                     </p>
 
                     {!isScanning ? (

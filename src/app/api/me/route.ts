@@ -1,27 +1,28 @@
 //gets the authentication status
 
 import { NextRequest, NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
 
 export async function GET(req: NextRequest) {
   try {
-    const token = req.cookies.get("authToken")?.value;
+    const authToken = req.cookies.get("authToken")?.value;
+    const adminToken = req.cookies.get("admin-auth")?.value;
 
-    if (!token) {
-      return NextResponse.json({ authenticated: false }, { status: 200 });
+    if (adminToken){
+      return NextResponse.json({
+        authenticated: true,
+        admin: true,
+      });
+    }
+    if (authToken){
+      return NextResponse.json({
+        authenticated: true,
+        admin: false
+      });
     }
 
-    const decoded = jwt.verify(
-      token,
-      process.env.JWT_SECRET as string
-    ) as { userId: string; email: string };
-
     return NextResponse.json({
-      authenticated: true,
-      user: {
-        id: decoded.userId,
-        email: decoded.email,
-      }
+      authenticated: false,
+      role: null,
     });
 
   } catch {

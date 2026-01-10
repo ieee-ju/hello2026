@@ -1,32 +1,21 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import "../globals.css";
 import { ArrowLeft } from "lucide-react";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Hello IEEE 2026 | IEEE JUSB",
   description: "An event management website for IEEE JUSB's Hello IEEE Event!",
 };
 
-export default function AuthLayout({
+export default function Adminayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
       <div
-        className={`${geistSans.variable} ${geistMono.variable} animate-gradient text-white bg-slate-950`}
+        className={`min-h-screen text-white bg-black`} //  bg-[#020617]
       >
         {/* Top Navigation Button */}
         <div className="w-full px-6 pt-8">
