@@ -92,9 +92,9 @@ export default function Hero() {
     return () => ctx.revert();
   }, []);
 
-  // const formatTime = (value: number) => {
-  //   return value < 10 ? `0${value}` : value;
-  // };
+  const formatTime = (value: number) => {
+    return value < 10 ? `0${value}` : value;
+  };
 
   return (
     <div ref={heroRef} className="relative min-h-screen w-full bg-black overflow-hidden flex flex-col font-sans">
@@ -111,7 +111,7 @@ export default function Hero() {
         <div className="hero-ui w-full flex justify-center lg:justify-start pt-8 md:pt-12">
           <div className="flex items-center gap-4">
             <span className="text-lg md:text-2xl font-mono font-medium tracking-wider text-white/90 text-center lg:text-left">
-              XX JANUARY 2026 | Triguna Sen Auditorium
+              21 JANUARY 2026 | Triguna Sen Auditorium
             </span>
           </div>
         </div>
@@ -196,8 +196,8 @@ export default function Hero() {
                 <React.Fragment key={item.label}>
                   <div className="flex flex-col items-center gap-1 sm:gap-2">
                     <span className="font-mono text-3xl sm:text-4xl md:text-5xl text-white tracking-widest font-bold leading-none tabular-nums">
-                      {/* {formatTime(item.value)} */}
-                      XX
+                      {formatTime(item.value)}
+                      {/* XX */}
                     </span>
                     <span className="text-[10px] sm:text-xs font-bold text-gray-500 uppercase tracking-widest">
                       {item.label}
