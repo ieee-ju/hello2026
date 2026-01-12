@@ -265,6 +265,10 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "sonner"
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
+import { Controller } from "react-hook-form";
+import { isValidPhoneNumber } from "libphonenumber-js";
 
 import { ArrowRight, User, Mail, Building } from "lucide-react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
@@ -316,10 +320,14 @@ const schema: yup.ObjectSchema<RegisterData> = yup.object({
 
   phone: yup
     .string()
-    .matches(/^[0-9]{10}$/, "Enter a valid 10-digit phone number")
-    .required("Phone is required"),
+    .required("Phone number is required")
+    .test(
+      "is-valid-phone",
+      "Enter a valid phone number for the selected country",
+      value => (value ? isValidPhoneNumber(value) : false)
+    ),
 
-    university: yup
+  university: yup
     .string()
     .trim()
     .required("University/College is required"),
@@ -337,6 +345,7 @@ const schema: yup.ObjectSchema<RegisterData> = yup.object({
   password: yup
     .string()
     .min(6, "Must be at least 6 characters")
+    .max(100, "Must be at most 100 characters")
     .required("Password is required"),
 
   confirmPassword: yup
@@ -389,6 +398,7 @@ export default function Register() {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors, isValid }
   } = useForm<RegisterData>({
     resolver: yupResolver(schema),
@@ -499,7 +509,7 @@ export default function Register() {
             <p className="text-red-400 text-sm">{errors.email?.message}</p>
           </div>
 
-         {/* NAME */}
+          {/* NAME */}
           <div className="space-y-2">
             <label className="text-xs font-bold uppercase tracking-widest text-gray-500">
               University / College
@@ -542,11 +552,36 @@ export default function Register() {
             <label className="text-xs font-bold uppercase tracking-widest text-gray-500">
               Phone
             </label>
-            <input
-              {...register("phone")}
-              className="w-full bg-white/5 border border-white/10 rounded-lg py-4 px-4 focus:border-[#3B82F6]"
-              placeholder="XXXXXXXXXX"
+
+            <Controller
+              name="phone"
+              control={control}
+              render={({ field }) => (
+                <PhoneInput
+                  {...field}
+                  international
+                  defaultCountry="IN"
+                  placeholder="+91 XXXXX XXXXX"
+                  className="
+                    flex items-center gap-2
+                    bg-white/5 border border-white/10 rounded-lg
+                    px-4 py-3
+                    transition-colors
+                    focus-within:border-[#3B82F6]
+                    focus-within:ring-2 focus-within:ring-[#3B82F6]/30
+                  "
+                  numberInputProps={{
+                    className:
+                      "bg-transparent text-white outline-none border-none ring-0 focus:ring-0",
+                  }}
+                  countrySelectProps={{
+                    className: "bg-black text-white",
+                    style: { backgroundColor: "black", color: "white" },
+                  } as React.SelectHTMLAttributes<HTMLSelectElement>}
+                />
+              )}
             />
+
             <p className="text-red-400 text-sm">{errors.phone?.message}</p>
           </div>
 

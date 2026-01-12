@@ -4,6 +4,7 @@ import User from "@/models/user";
 import jwt from "jsonwebtoken";
 import { sendRegistrationEmail } from "@/lib/email";
 import { toast } from "sonner";
+import { isValidPhoneNumber } from "libphonenumber-js";
 
 export async function POST(req: NextRequest) {
   try {
@@ -15,6 +16,13 @@ export async function POST(req: NextRequest) {
     if (existingUser) {
       return NextResponse.json(
         { error: "User already exists" },
+        { status: 400 }
+      );
+    }
+
+    if (!isValidPhoneNumber(phone)) {
+      return NextResponse.json(
+        { error: "Invalid phone number" },
         { status: 400 }
       );
     }
